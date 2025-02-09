@@ -1,7 +1,5 @@
 ## Installation
 
-### Cloner le projet
-
 ```Shell
 Installer XCODE
 ```
