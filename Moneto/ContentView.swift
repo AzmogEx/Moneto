@@ -4,15 +4,10 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-    
-    //----------------------------VUE PRINCIPAL-----------------------------
-    
-    // Vue principale
+
     var body: some View {
         NavigationStack {
             VStack {
-                //----------------------------------
-                
                 Text("Hello !")
                     .font(.custom("MadimiOne-Regular", size: 100))
                     .frame(maxWidth: .infinity, alignment: .top)
@@ -22,8 +17,6 @@ struct ContentView: View {
                     .foregroundColor(.white)
 
                 Spacer()
-                
-                //----------------------------------
 
                 Image("poche")
                     .resizable()
@@ -33,9 +26,7 @@ struct ContentView: View {
                     .frame(width: 1000, height: 550)
 
                 Spacer()
-                //----------------------------------
 
-                // Boutton de navigation
                 GeometryReader { geometry in
                     NavigationLink(destination: NextView()) {
                         Text("Suivant")
@@ -52,9 +43,6 @@ struct ContentView: View {
                     }
                     .position(x: geometry.size.width / 2, y: geometry.size.height - 95)
                 }
-                
-                //----------------------------------
-                
             }
             .background(Color(hex: "#262626"))
             .edgesIgnoringSafeArea(.all)
@@ -62,16 +50,11 @@ struct ContentView: View {
     }
 }
 
-//----------------------------NEXT VUE-----------------------------
-
-// La vue suivante
 struct NextView: View {
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationStack {
             VStack {
-                //----------------------------------
-                
                 Text("Hello !")
                     .font(.custom("MadimiOne-Regular", size: 100))
                     .frame(maxWidth: .infinity, alignment: .top)
@@ -79,13 +62,10 @@ struct NextView: View {
                     .padding(.top, 60)
                     .offset(y: 20)
                     .foregroundColor(.white)
-                
+
                 Spacer()
                     .frame(width: nil, height: 100)
-        
-                //----------------------------------
-                
-                // Bouton "Anciens Tableaux"
+
                 NavigationLink(destination: AncienTableau()) {
                     Text("Anciens Tableaux")
                         .padding(.horizontal, 30)
@@ -100,13 +80,10 @@ struct NextView: View {
                         )
                         .offset(y: -20)
                 }
-                
+
                 Spacer()
                     .frame(width: nil, height: 70.0)
-                
-                //----------------------------------
-                
-                // Autre bouton ou contenu ici si nécessaire
+
                 NavigationLink(destination: NouveauTableau()) {
                     Text("Nouveau Tableau")
                         .padding(.horizontal, 30)
@@ -122,21 +99,21 @@ struct NextView: View {
                         .offset(y: -20)
                 }
                 Spacer()
-                
+
                 Button(action: {
-                    self.presentationMode.wrappedValue.dismiss() // Revenir en arrière
+                    self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Retour")
                         .padding(.horizontal, 20)
                         .padding(.vertical, -5)
-                        .font(.system(size: 25)) // Taille du texte
-                        .padding() // Ajoute de l'espace autour de l'image
+                        .font(.system(size: 25))
+                        .padding()
                         .background(Color(hex: "#262626"))
                         .foregroundColor(.white)
-                        .cornerRadius(34) // Bordure arrondie
+                        .cornerRadius(34)
                         .overlay(
                             RoundedRectangle(cornerRadius: 34)
-                                .stroke(Color.white, lineWidth: 2) // Bordure autour du bouton
+                                .stroke(Color.white, lineWidth: 2)
                         )
                 }.offset(y: -50)
             }
@@ -147,15 +124,10 @@ struct NextView: View {
     }
 }
 
-//----------------------------ANCIEN TABLEAU------------------------
-
-// La vue suivante
 struct AncienTableau: View {
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         VStack {
-            //----------------------------------
-
             Text("Anciens\nTableaux !")
                 .font(.custom("MadimiOne-Regular", size: 50))
                 .frame(maxWidth: .infinity, alignment: .top)
@@ -163,79 +135,68 @@ struct AncienTableau: View {
                 .padding(.top, 60)
                 .offset(y: 20)
                 .foregroundColor(.white)
-            
+
             Spacer()
                 .frame(width: nil, height: 100)
-            //----------------------------------
-            
+
             Button("Nouveau ") {
                 // Action du bouton ici
             }
-            .padding(.horizontal, 30) // Ajoute de l'espace uniquement à gauche et à droite
+            .padding(.horizontal, 30)
             .padding(.vertical, 15)
             .background(Color(hex: "#262626"))
             .foregroundColor(.white)
-            .cornerRadius(34) // Bordure arrondie
-            .font(.system(size: 24)) // Taille du texte
+            .cornerRadius(34)
+            .font(.system(size: 24))
             .overlay(
                 RoundedRectangle(cornerRadius: 34)
-                    .stroke(Color.white, lineWidth: 2) // Bordure autour du bouton
+                    .stroke(Color.white, lineWidth: 2)
             )
-            .offset(y: -20) // Déplace le bouton vers le haut de 20 points
-            
+            .offset(y: -20)
+
             Spacer()
                 .frame(width: nil, height: 70.0)
-            //----------------------------------
-            
+
             Button("Coucou") {
                 // Action du bouton ici
             }
-            .padding(.horizontal, 30) // Ajoute de l'espace uniquement à gauche et à droite
+            .padding(.horizontal, 30)
             .padding(.vertical, 15)
             .background(Color(hex: "#262626"))
             .foregroundColor(.white)
-            .cornerRadius(34) // Bordure arrondie
-            .font(.system(size: 24)) // Taille du texte
+            .cornerRadius(34)
+            .font(.system(size: 24))
             .overlay(
                 RoundedRectangle(cornerRadius: 34)
-                    .stroke(Color.white, lineWidth: 2) // Bordure autour du bouton
+                    .stroke(Color.white, lineWidth: 2)
             )
-            .offset(y: -20) // Déplace le bouton vers le haut de 20 points
-            
+            .offset(y: -20)
+
             Spacer()
-            
-            //----------------------------------
-            
+
             Button(action: {
-                self.presentationMode.wrappedValue.dismiss() // Revenir en arrière
+                self.presentationMode.wrappedValue.dismiss()
             }) {
                 Image(systemName: "xmark")
-                    .font(.system(size: 28)) // Taille du texte
-                    .padding() // Ajoute de l'espace autour de l'image
+                    .font(.system(size: 28))
+                    .padding()
                     .background(Color(hex: "#262626"))
                     .foregroundColor(.white)
-                    .cornerRadius(34) // Bordure arrondie
+                    .cornerRadius(34)
                     .overlay(
                         RoundedRectangle(cornerRadius: 34)
-                            .stroke(Color.white, lineWidth: 2) // Bordure autour du bouton
+                            .stroke(Color.white, lineWidth: 2)
                     )
             }.offset(y: -50)
-            
-            //----------------------------------
-            
         }
         .background(Color(hex: "#262626"))
         .edgesIgnoringSafeArea(.all)
         .navigationBarBackButtonHidden(true)
-        }
-    
-    //----------------------------------
-
+    }
 }
 
-//----------------------------NOUVEAU TABLEAU------------------------
 struct Revenu: Codable, Equatable, Identifiable {
-    var id = UUID() // Pour identifier chaque revenu
+    var id = UUID()
     var nom: String
     var montant: String
     var icone: String
@@ -247,89 +208,85 @@ struct NouveauTableau: View {
     @State private var expandedIndex: Int? = nil
 
     @AppStorage("revenusData") private var revenusData: Data = Data()
-    
+
     var body: some View {
         NavigationStack {
-            
             VStack {
                 Text("Définissez vos\n différents revenus")
-                    .font(.custom("MadimiOne-Regular", size: 30))
+                    .font(.custom("MadimiOne-Regular", size: 45))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding(.top, 70)
-                
-                    ScrollView {
-                        VStack(spacing: 20) {
-                            ForEach(revenus.indices, id: \.self) { index in
-                                RevenuCardView(
-                                    revenu: $revenus[index],
-                                    isExpanded: expandedIndex == index,
-                                    onExpandToggle: {
-                                        withAnimation {
-                                            // Fermer si c'est la même carte, ouvrir sinon
-                                            expandedIndex = (expandedIndex == index) ? nil : index
-                                        }
-                                    },
-                                    onDelete: {
-                                        revenus.remove(at: index)
-                                        expandedIndex = nil
+
+                ScrollView {
+                    VStack(spacing: 20) {
+                        ForEach(revenus.indices, id: \.self) { index in
+                            RevenuCardView(
+                                revenu: $revenus[index],
+                                isExpanded: expandedIndex == index,
+                                onExpandToggle: {
+                                    withAnimation {
+                                        expandedIndex = (expandedIndex == index) ? nil : index
                                     }
-                                )
-                            }
-                            
-                            Button(action: {
-                                revenus.append(Revenu(nom: "Nouveau revenu", montant: "0", icone: "plus.circle"))
-                            })
-                            {
-                                HStack {
-                                    Spacer()
-                                    Image(systemName: "plus")
-                                        .font(.system(size: 30))
-                                        .foregroundColor(.white)
-                                    Spacer()
+                                },
+                                onDelete: {
+                                    revenus.remove(at: index)
+                                    expandedIndex = nil
                                 }
-                                .padding()
-                                .background(
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color.white, style: StrokeStyle(lineWidth: 2, dash: [6]))
-                                )
+                            )
+                        }
+
+                        Button(action: {
+                            revenus.append(Revenu(nom: "Nouveau revenu", montant: "", icone: "plus.circle"))
+                        }) {
+                            HStack {
+                                Spacer()
+                                Image(systemName: "plus")
+                                    .font(.system(size: 30))
+                                    .foregroundColor(.white)
+                                Spacer()
                             }
-                            
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(Color.white, style: StrokeStyle(lineWidth: 2, dash: [6]))
+                            )
                         }
-                        .onAppear {
-                            revenus = loadRevenus()
-                        }
-                        .onChange(of: revenus) {
-                            saveRevenus()
-                        }
-                        .padding()
                     }
-                    //----------------------------------
-                    HStack {
-                        Button(action: {
-                            self.presentationMode.wrappedValue.dismiss()
-                        }) {
-                            Image(systemName: "xmark.circle")
-                                .font(.system(size: 40))
-                                .foregroundColor(.white)
-                                .padding()
-                        }
-                        Spacer()
-                        Button(action: {
-                            print("Validation effectuée")
-                        }) {
-                            Image(systemName: "checkmark.circle")
-                                .font(.system(size: 40))
-                                .foregroundColor(.white)
-                                .padding()
-                        }
-                    }.padding(.horizontal)
+                    .onAppear {
+                        revenus = loadRevenus()
+                    }
+                    .onChange(of: revenus) {
+                        saveRevenus()
+                    }
+                    .padding()
                 }
-                .background(Color(hex: "#262626"))
-                .edgesIgnoringSafeArea(.all)
-                .navigationBarBackButtonHidden(true)
+
+                HStack {
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "xmark.circle")
+                            .font(.system(size: 40))
+                            .foregroundColor(.white)
+                            .padding()
+                    }
+                    Spacer()
+                    Button(action: {
+                        print("Validation effectuée")
+                    }) {
+                        Image(systemName: "checkmark.circle")
+                            .font(.system(size: 40))
+                            .foregroundColor(.white)
+                            .padding()
+                    }
+                }.padding(.horizontal)
             }
+            .background(Color(hex: "#262626"))
+            .edgesIgnoringSafeArea(.all)
+            .navigationBarBackButtonHidden(true)
         }
+    }
 
     private func saveRevenus() {
         if let data = try? JSONEncoder().encode(revenus) {
@@ -351,27 +308,47 @@ struct RevenuCardView: View {
     var onExpandToggle: () -> Void
     var onDelete: () -> Void
 
+    @State private var isIconPickerVisible = false
+    @State private var selectedColor: Color = .white
+
+    let couleursDisponibles: [Color] = [.blue, .green, .red, .orange, .purple]
+    let iconesDisponibles: [String] = [
+        "dollarsign.circle",
+        "cart",
+        "house",
+        "briefcase",
+        "heart",
+        "gamecontroller"
+    ]
+
     var body: some View {
         VStack {
             HStack {
                 Image(systemName: revenu.icone)
                     .foregroundColor(.white)
                     .padding()
+                    .background(
+                        Circle()
+                            .fill(Color.black) // Remplit l'intérieur du rond
+                    )
+                    .onTapGesture {
+                        isIconPickerVisible.toggle()
+                    }
                 VStack(alignment: .leading) {
                     Text(revenu.nom)
                         .font(.headline)
                         .foregroundColor(.white)
                     Text("\(revenu.montant) €")
                         .foregroundColor(.white)
+                    
                 }
                 Spacer()
             }
             .padding()
-            
-            
+
             if isExpanded {
                 Divider().background(Color.white)
-                
+
                 HStack {
                     Image(systemName: "pencil")
                         .foregroundColor(.white)
@@ -385,7 +362,22 @@ struct RevenuCardView: View {
                         .stroke(Color.white, lineWidth: 1)
                 )
                 .padding(.horizontal)
-                
+
+                HStack {
+                    Text("Couleur")
+                        .foregroundColor(.white)
+                    Spacer()
+                    ForEach(couleursDisponibles, id: \.self) { couleur in
+                        Circle()
+                            .fill(couleur)
+                            .frame(width: 30, height: 30)
+                            .onTapGesture {
+                                // Ajoutez ici la logique pour changer la couleur de l'icône
+                            }
+                    }
+                }
+                .padding()
+
                 Button(action: onDelete) {
                     Text("Supprimer")
                         .font(.headline)
@@ -405,6 +397,64 @@ struct RevenuCardView: View {
         .onTapGesture {
             onExpandToggle()
         }
+        .sheet(isPresented: $isIconPickerVisible) {
+            IconPickerView(selectedIcon: $revenu.icone, iconesDisponibles: iconesDisponibles)
+        }
+    }
+}
+
+struct IconPickerView: View {
+    @Binding var selectedIcon: String
+    let iconesDisponibles: [String]
+    let couleursDisponibles: [Color] = [.red, .blue, .green, .yellow, .purple, .orange, .pink, .gray]
+    @State private var selectedColor: Color? = nil
+
+    var body: some View {
+        VStack {
+            Text("Icones")
+                .font(.headline)
+                .padding()
+
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4)) {
+                ForEach(iconesDisponibles, id: \.self) { icone in
+                    Image(systemName: icone)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
+                        .padding(5)
+                        .background(selectedIcon == icone ? Color.gray.opacity(0.3) : Color.clear)
+                        .cornerRadius(8)
+                        .onTapGesture {
+                            selectedIcon = icone
+                        }
+                }
+
+            }
+            Text("Choisissez une couleur")
+                            .font(.headline)
+                            .padding()
+
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4)) {
+                            ForEach(couleursDisponibles, id: \.self) { couleur in
+                                Circle()
+                                    .fill(couleur)
+                                    .frame(width: 50, height: 50)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(selectedColor == couleur ? Color.black : Color.clear, lineWidth: 3)
+                                    )
+                                    .onTapGesture {
+                                        selectedColor = couleur
+                                    }
+                            }
+                        }
+                        .padding()
+
+            Spacer()
+        }
+        .background(Color(hex: "#262626"))
+        .cornerRadius(15)
+        .padding()
     }
 }
 
@@ -420,18 +470,18 @@ struct RevenuCardView: View {
 extension Color {
     init(hex: String) {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
-        
+
         if hexSanitized.hasPrefix("#") {
             hexSanitized.removeFirst()
         }
-        
+
         var rgb: UInt64 = 0
         Scanner(string: hexSanitized).scanHexInt64(&rgb)
-        
+
         let red = Double((rgb >> 16) & 0xFF) / 255.0
         let green = Double((rgb >> 8) & 0xFF) / 255.0
         let blue = Double(rgb & 0xFF) / 255.0
-        
+
         self.init(red: red, green: green, blue: blue)
     }
 }
