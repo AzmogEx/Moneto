@@ -399,7 +399,7 @@ struct RevenuCardView: View {
                 .padding()
             }
         }
-        .background(Color(hex: "#262626"))
+        .background(Color(hex: "#2F2F2F"))
         .cornerRadius(15)
         .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
         .onTapGesture {
