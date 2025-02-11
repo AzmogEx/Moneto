@@ -147,7 +147,7 @@ struct NextView: View {
     }
 }
 
-//----------------------------ANCIEN TABLEAU-----------------------------
+//----------------------------ANCIEN TABLEAU------------------------
 
 // La vue suivante
 struct AncienTableau: View {
@@ -233,7 +233,7 @@ struct AncienTableau: View {
 
 }
 
-//----------------------------NOUVEAU TABLEAU-----------------------------
+//----------------------------NOUVEAU TABLEAU------------------------
 struct Revenu: Codable, Equatable, Identifiable {
     var id = UUID() // Pour identifier chaque revenu
     var nom: String
@@ -250,83 +250,86 @@ struct NouveauTableau: View {
     
     var body: some View {
         NavigationStack {
+            
             VStack {
                 Text("Définissez vos\n différents revenus")
                     .font(.custom("MadimiOne-Regular", size: 30))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                    .padding(.top, 60)
+                    .padding(.top, 70)
                 
-                ScrollView {
-                    VStack(spacing: 20) {
-                        ForEach(revenus.indices, id: \.self) { index in
-                            RevenuCardView(
-                                revenu: $revenus[index],
-                                isExpanded: expandedIndex == index,
-                                onExpandToggle: {
-                                    withAnimation(.spring()) {
-                                        expandedIndex = expandedIndex == index ? nil : index
+                    ScrollView {
+                        VStack(spacing: 20) {
+                            ForEach(revenus.indices, id: \.self) { index in
+                                RevenuCardView(
+                                    revenu: $revenus[index],
+                                    isExpanded: expandedIndex == index,
+                                    onExpandToggle: {
+                                        withAnimation {
+                                            // Fermer si c'est la même carte, ouvrir sinon
+                                            expandedIndex = (expandedIndex == index) ? nil : index
+                                        }
+                                    },
+                                    onDelete: {
+                                        revenus.remove(at: index)
+                                        expandedIndex = nil
                                     }
-                                },
-                                onDelete: {
-                                    revenus.remove(at: index)
-                                    expandedIndex = nil
-                                }
-                            )
-                        }
-                        
-                        Button(action: {
-                            revenus.append(Revenu(nom: "Nouveau revenu", montant: "0", icone: "plus.circle"))
-                        }) {
-                            HStack {
-                                Spacer()
-                                Image(systemName: "plus")
-                                    .font(.system(size: 30))
-                                    .foregroundColor(.white)
-                                Spacer()
+                                )
                             }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color.white, style: StrokeStyle(lineWidth: 2, dash: [6]))
-                            )
+                            
+                            Button(action: {
+                                revenus.append(Revenu(nom: "Nouveau revenu", montant: "0", icone: "plus.circle"))
+                            })
+                            {
+                                HStack {
+                                    Spacer()
+                                    Image(systemName: "plus")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.white)
+                                    Spacer()
+                                }
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(Color.white, style: StrokeStyle(lineWidth: 2, dash: [6]))
+                                )
+                            }
+                            
                         }
-                        
+                        .onAppear {
+                            revenus = loadRevenus()
+                        }
+                        .onChange(of: revenus) {
+                            saveRevenus()
+                        }
+                        .padding()
                     }
-                    .onAppear {
-                        revenus = loadRevenus()
-                    }
-                    .onChange(of: revenus) {
-                        saveRevenus()
-                    }
-                    .padding()
+                    //----------------------------------
+                    HStack {
+                        Button(action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Image(systemName: "xmark.circle")
+                                .font(.system(size: 40))
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                        Spacer()
+                        Button(action: {
+                            print("Validation effectuée")
+                        }) {
+                            Image(systemName: "checkmark.circle")
+                                .font(.system(size: 40))
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                    }.padding(.horizontal)
                 }
-                //----------------------------------
-                HStack {
-                    Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "xmark.circle")
-                            .font(.system(size: 40))
-                            .foregroundColor(.white)
-                            .padding()
-                    }
-                    Spacer()
-                    Button(action: {
-                        print("Validation effectuée")
-                    }) {
-                        Image(systemName: "checkmark.circle")
-                            .font(.system(size: 40))
-                            .foregroundColor(.white)
-                            .padding()
-                    }
-                }.padding(.horizontal)
+                .background(Color(hex: "#262626"))
+                .edgesIgnoringSafeArea(.all)
+                .navigationBarBackButtonHidden(true)
             }
-            .background(Color(hex: "#121212"))
-            .edgesIgnoringSafeArea(.all)
-            .navigationBarBackButtonHidden(true)
         }
-    }
 
     private func saveRevenus() {
         if let data = try? JSONEncoder().encode(revenus) {
@@ -359,18 +362,16 @@ struct RevenuCardView: View {
                         .font(.headline)
                         .foregroundColor(.white)
                     Text("\(revenu.montant) €")
-                        .foregroundColor(.gray)
+                        .foregroundColor(.white)
                 }
                 Spacer()
             }
             .padding()
-            .onTapGesture {
-                onExpandToggle()
-            }
-
+            
+            
             if isExpanded {
                 Divider().background(Color.white)
-
+                
                 HStack {
                     Image(systemName: "pencil")
                         .foregroundColor(.white)
@@ -384,7 +385,7 @@ struct RevenuCardView: View {
                         .stroke(Color.white, lineWidth: 1)
                 )
                 .padding(.horizontal)
-
+                
                 Button(action: onDelete) {
                     Text("Supprimer")
                         .font(.headline)
@@ -401,6 +402,9 @@ struct RevenuCardView: View {
         .background(Color(hex: "#262626"))
         .cornerRadius(15)
         .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
+        .onTapGesture {
+            onExpandToggle()
+        }
     }
 }
 
